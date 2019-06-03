@@ -181,6 +181,44 @@
   </div>
 </template>
 
+<script type="text/javascript">
+  var fireballSize = 22;
+  var wizardSpeed = 3;
+  var wizardWidth = 70;
+
+  //Определение скорости фаербола
+  var getFireballSpeed = function (left) {
+    return left ? 5 : 2;
+  }
+
+  var fireballSpeed = getFireballSpeed();
+
+  //Определение высоты волшебника
+  var getWizardHeight = function (wizardWidth) {
+     var wizardHeight = wizardWidth * 1.33;
+     return wizardHeight;
+  }
+
+  var wizardHeight = getWizardHeight(wizardWidth);
+
+  //Определение положения волшебника по горизонтали
+  var getWizardX = function (width) {
+    var wizardX = (width - wizardWidth) / 2;
+    return wizardX;
+  }
+
+  var wizardX = getWizardX();
+
+  //Определение положения волшебника по вертикали
+  var getWizardY = function (height) {
+    var wizardY= height * 2 / 3 - wizardHeight / 2;
+    return wizardY;
+  }
+
+  var wizardY = getWizardY();
+
+</script>
+
 <script src="js/game.js"></script>
 
 </body>
