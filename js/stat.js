@@ -27,9 +27,9 @@ var getMaxElement = function (arr) {
 };
 
 var randomInteger = function (min, max) {
-  var rand = min - 0.5 + Math.random() * (max - min + 1);
-  rand = Math.round(rand);
-  return rand;
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
 };
 
 var getColor = function (name) {
@@ -46,10 +46,11 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', TEXT_X, TEXT_Y + FONT_HEIGHT);
 
   for (var i = 0; i < names.length; i++) {
+    var barHeight = BAR_HEIGHT * times[i] / maxTime;
     ctx.fillStyle = '#000';
     ctx.fillText(names[i], CLOUD_X + (GAP + BAR_WIDTH) * i, CLOUD_Y);
-    ctx.fillText(Math.round(times[i]), CLOUD_X + (GAP + BAR_WIDTH) * i, CLOUD_Y - FONT_GAP - (BAR_HEIGHT * times[i]) / maxTime);
+    ctx.fillText(Math.round(times[i]), CLOUD_X + (GAP + BAR_WIDTH) * i, CLOUD_Y - FONT_GAP - barHeight);
     ctx.fillStyle = getColor(names[i]);
-    ctx.fillRect(CLOUD_X + (GAP + BAR_WIDTH) * i, GAP + FONT_GAP + BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime, BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
+    ctx.fillRect(CLOUD_X + (GAP + BAR_WIDTH) * i, GAP + FONT_GAP + BAR_HEIGHT - barHeight, BAR_WIDTH, barHeight);
   }
 };
