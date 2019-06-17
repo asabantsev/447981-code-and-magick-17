@@ -21,29 +21,28 @@ var randomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
+var randomObject = function (name, surname, coatColor, eyesColor) {
+  var wizardArray = [];
 
-var wizards = [
-  {
-    name: WIZARD_NAMES[randomInteger(0, WIZARD_NAMES.length)] + ' ' + WIZARD_SURNAMES[randomInteger(0, WIZARD_SURNAMES.length)],
-    coatColor: COAT_COLORS[randomInteger(0, COAT_COLORS.length)],
-    eyesColor: EYES_COLORS[randomInteger(0, EYES_COLORS.length)]
-  },
-  {
-    name: WIZARD_NAMES[randomInteger(0, WIZARD_NAMES.length)] + ' ' + WIZARD_SURNAMES[randomInteger(0, WIZARD_SURNAMES.length)],
-    coatColor: COAT_COLORS[randomInteger(0, COAT_COLORS.length)],
-    eyesColor: EYES_COLORS[randomInteger(0, EYES_COLORS.length)]
-  },
-  {
-    name: WIZARD_NAMES[randomInteger(0, WIZARD_NAMES.length)] + ' ' + WIZARD_SURNAMES[randomInteger(0, WIZARD_SURNAMES.length)],
-    coatColor: COAT_COLORS[randomInteger(0, COAT_COLORS.length)],
-    eyesColor: EYES_COLORS[randomInteger(0, EYES_COLORS.length)]
-  },
-  {
-    name: WIZARD_NAMES[randomInteger(0, WIZARD_NAMES.length)] + ' ' + WIZARD_SURNAMES[randomInteger(0, WIZARD_SURNAMES.length)],
-    coatColor: COAT_COLORS[randomInteger(0, COAT_COLORS.length)],
-    eyesColor: EYES_COLORS[randomInteger(0, EYES_COLORS.length)]
+  for (var i = 0; i < 4; i++) {
+    var randomName = name[randomInteger(0, name.length)];
+    var randomSurname = surname[randomInteger(0, surname.length)];
+    var randomCoatColor = coatColor[randomInteger(0, coatColor.length)];
+    var randomEyeColor = eyesColor[randomInteger(0, eyesColor.length)];
+
+    var wizardObject = {
+      name: randomName + ' ' + randomSurname,
+      coatColor: randomCoatColor,
+      eyesColor: randomEyeColor
+    };
+
+    wizardArray.push(wizardObject);
   }
-];
+
+  return wizardArray;
+};
+
+var wizards = randomObject(WIZARD_NAMES, WIZARD_SURNAMES, COAT_COLORS, EYES_COLORS);
 
 var renderWizard = function () {
   var wizardElement = similarWizardTemplate.cloneNode(true);
