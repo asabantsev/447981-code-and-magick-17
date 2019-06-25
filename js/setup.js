@@ -25,15 +25,10 @@ var randomObject = function (name, surname, coatColor, eyesColor) {
   var wizardArray = [];
 
   for (var i = 0; i < 4; i++) {
-    var randomName = name[randomInteger(0, name.length)];
-    var randomSurname = surname[randomInteger(0, surname.length)];
-    var randomCoatColor = coatColor[randomInteger(0, coatColor.length)];
-    var randomEyeColor = eyesColor[randomInteger(0, eyesColor.length)];
-
     var wizardObject = {
-      name: randomName + ' ' + randomSurname,
-      coatColor: randomCoatColor,
-      eyesColor: randomEyeColor
+      name: name[randomInteger(0, name.length)] + ' ' + surname[randomInteger(0, surname.length)],
+      coatColor: coatColor[randomInteger(0, coatColor.length)],
+      eyesColor: eyesColor[randomInteger(0, eyesColor.length)]
     };
 
     wizardArray.push(wizardObject);
