@@ -12,6 +12,7 @@ var ENTER_KEYCODE = 13;
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
+var inputName = document.querySelector('.setup-user-name');
 
 var similarListElement = setup.querySelector('.setup-similar-list');
 
@@ -19,24 +20,20 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
 
-var randomInteger = function (min, max) {
+var getRandomInteger = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
-};
-
-var randomArrayElement = function (array) {
-  return array[Math.floor(Math.random() * (array.length - 1))];
 };
 
 var randomObject = function (name, surname, coatColor, eyesColor) {
   var wizardArray = [];
 
   for (var i = 0; i < 4; i++) {
-    var randomName = name[randomInteger(0, name.length)];
-    var randomSurname = surname[randomInteger(0, surname.length)];
-    var randomCoatColor = coatColor[randomInteger(0, coatColor.length)];
-    var randomEyeColor = eyesColor[randomInteger(0, eyesColor.length)];
+    var randomName = name[getRandomInteger(0, name.length)];
+    var randomSurname = surname[getRandomInteger(0, surname.length)];
+    var randomCoatColor = coatColor[getRandomInteger(0, coatColor.length)];
+    var randomEyeColor = eyesColor[getRandomInteger(0, eyesColor.length)];
 
     var wizardObject = {
       name: randomName + ' ' + randomSurname,
@@ -72,7 +69,7 @@ setup.querySelector('.setup-similar').classList.remove('hidden');
 
 // функции скрытия и раскрытия окна
 var onPopupEcsPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && document.activeElement !== inputName) {
     closePopup();
   }
 };
@@ -108,20 +105,6 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-// валидация поля ввода имени
-var userNameInput = setup.querySelector('.setup-user-name');
-
-userNameInput.addEventListener('invalid', function () {
-  if (userNameInput.validity.tooShort) {
-    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
-  } else if (userNameInput.validity.tooLong) {
-    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
-  } else if (userNameInput.validity.valueMissing) {
-    userNameInput.setCustomValidity('Обязательное поле');
-  } else {
-    userNameInput.setCustomValidity('');
-  }
-});
 
 // изменение цвета по нажатию
 var wizardCoat = setup.querySelector('.setup-wizard .wizard-coat');
@@ -134,7 +117,7 @@ var fireBall = setup.querySelector('.setup-fireball-wrap');
 var fireBallInput = setup.querySelector('input[name=fireball-color]');
 
 var setWizardRandomColor = function (evt, colors, styleProperty, formInputNode) {
-  var color = randomArrayElement(colors);
+  var color = colors[getRandomInteger(0, colors.length)];
   evt.currentTarget.style[styleProperty] = color;
   formInputNode.value = color;
 };
